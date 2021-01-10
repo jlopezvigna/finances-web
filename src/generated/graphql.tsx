@@ -41,7 +41,7 @@ export type User = {
   id: Scalars['Float'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
-  username: Scalars['String'];
+  email: Scalars['String'];
 };
 
 export type Mutation = {
@@ -74,12 +74,12 @@ export type MutationDeleteBillArgs = {
 
 
 export type MutationRegisterArgs = {
-  credentials: UsernamePasswordInput;
+  credentials: EmailPasswordInput;
 };
 
 
 export type MutationLoginArgs = {
-  credentials: UsernamePasswordInput;
+  credentials: EmailPasswordInput;
 };
 
 export type UserResponse = {
@@ -94,18 +94,18 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
-export type UsernamePasswordInput = {
-  username: Scalars['String'];
+export type EmailPasswordInput = {
+  email: Scalars['String'];
   password: Scalars['String'];
 };
 
 export type RegularUserFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'username'>
+  & Pick<User, 'id' | 'email'>
 );
 
 export type LoginMutationVariables = Exact<{
-  username: Scalars['String'];
+  email: Scalars['String'];
   password: Scalars['String'];
 }>;
 
@@ -133,7 +133,7 @@ export type LogoutMutation = (
 );
 
 export type RegisterMutationVariables = Exact<{
-  username: Scalars['String'];
+  email: Scalars['String'];
   password: Scalars['String'];
 }>;
 
@@ -166,12 +166,12 @@ export type MeQuery = (
 export const RegularUserFragmentDoc = gql`
     fragment RegularUser on User {
   id
-  username
+  email
 }
     `;
 export const LoginDocument = gql`
-    mutation Login($username: String!, $password: String!) {
-  login(credentials: {username: $username, password: $password}) {
+    mutation Login($email: String!, $password: String!) {
+  login(credentials: {email: $email, password: $password}) {
     errors {
       field
       message
@@ -196,8 +196,8 @@ export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
 };
 export const RegisterDocument = gql`
-    mutation Register($username: String!, $password: String!) {
-  register(credentials: {username: $username, password: $password}) {
+    mutation Register($email: String!, $password: String!) {
+  register(credentials: {email: $email, password: $password}) {
     errors {
       field
       message

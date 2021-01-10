@@ -29,7 +29,7 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
     //   user is logged in
     body = (
       <Flex>
-        <Box mr={2}>{data.me.username}</Box>
+        <Box mr={2}>{data.me.email}</Box>
         <Button
           onClick={() => {
             logout();
