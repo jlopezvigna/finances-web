@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Link } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import React from "react";
 import InputField from "../components/InputField";
@@ -6,11 +6,13 @@ import Wrapper from "../components/Wrapper";
 import { useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
+import NextLink from "next/link";
 
 interface loginProps {}
 
 const Login: React.FC<loginProps> = ({}) => {
   const [, login] = useLoginMutation();
+
   const router = useRouter();
   return (
     <Wrapper variant="small">
@@ -32,11 +34,18 @@ const Login: React.FC<loginProps> = ({}) => {
             <Box mt={4}>
               <InputField name="password" label="Password" type="password" />
             </Box>
+            <Box display="flex" justifyContent="flex-end" mt={1}>
+              <NextLink href="/forgot-password">
+                <Link>Forgot Password</Link>
+              </NextLink>
+            </Box>
+
             <Button
               mt={4}
               colorScheme="teal"
               isLoading={isSubmitting}
               type="submit"
+              isFullWidth
             >
               Login
             </Button>
